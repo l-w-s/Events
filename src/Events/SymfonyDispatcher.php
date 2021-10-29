@@ -28,7 +28,7 @@ class SymfonyDispatcher implements \Symfony\Component\EventDispatcher\EventDispa
 		$this->evm = $eventManager;
 	}
 
-	public function dispatch($eventName, SymfonyEvent $event = NULL)
+	public function dispatch(object $event, string $eventName = null): object
 	{
 		$this->evm->dispatchEvent($eventName, new EventArgsList([$event]));
 	}
