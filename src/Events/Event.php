@@ -14,6 +14,7 @@ use ArrayIterator;
 use Kdyby\Events\Diagnostics\Panel;
 use Nette\Reflection\ClassType as ClassTypeReflection;
 use Nette\Utils\Callback;
+use ReturnTypeWillChange;
 use Traversable;
 
 class Event implements \ArrayAccess, \IteratorAggregate, \Countable
@@ -230,7 +231,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	/**
 	 * @return int
 	 */
-	public function count()
+	#[ReturnTypeWillChange] public function count()
 	{
 		return count($this->listeners);
 	}
@@ -240,7 +241,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	/**
 	 * @return \ArrayIterator|\Traversable
 	 */
-	public function getIterator()
+	#[ReturnTypeWillChange] public function getIterator()
 	{
 		return new ArrayIterator($this->getListeners());
 	}
@@ -251,7 +252,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	 * @param int|NULL $index
 	 * @param callable $item
 	 */
-	public function offsetSet($index, $item)
+	#[ReturnTypeWillChange] public function offsetSet($index, $item)
 	{
 		Callback::check($item, TRUE);
 
@@ -268,7 +269,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	 * @return callable
 	 * @throws \Kdyby\Events\OutOfRangeException
 	 */
-	public function offsetGet($index)
+	#[ReturnTypeWillChange] public function offsetGet($index)
 	{
 		if (!$this->offsetExists($index)) {
 			throw new \Kdyby\Events\OutOfRangeException;
@@ -282,7 +283,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	 *
 	 * @return bool
 	 */
-	public function offsetExists($index)
+	#[ReturnTypeWillChange] public function offsetExists($index)
 	{
 		return isset($this->listeners[$index]);
 	}
@@ -290,7 +291,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	/**
 	 * @param int $index
 	 */
-	public function offsetUnset($index)
+	#[ReturnTypeWillChange] public function offsetUnset($index)
 	{
 		unset($this->listeners[$index]);
 	}
